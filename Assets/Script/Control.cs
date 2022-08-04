@@ -21,6 +21,9 @@ public class Control : MonoBehaviour
 
 
     private CharacterController characterControl;
+    [SerializeField] Transform direction;
+
+    [SerializeField] GameObject bullet;
 
     public Transform cameraTransform;
     private ParticleSystem particle;
@@ -41,6 +44,9 @@ public class Control : MonoBehaviour
 
         if(Input.GetButtonDown("Fire1"))
         {
+            Instantiate(bullet,direction.position,transform.rotation);
+
+          
             particle.Play();
         }
 

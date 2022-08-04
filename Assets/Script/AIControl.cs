@@ -9,9 +9,15 @@ public class AIControl : MonoBehaviour
     [SerializeField] int count;
     [SerializeField] Transform[] wayPoint;
 
-   
+    private Transform tempPoint=null;
+
+
+    [SerializeField] int health;
+
+    Animator animator;
     void Start()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         InvokeRepeating(nameof(MoveNext), 0, 2);
     }
@@ -19,7 +25,29 @@ public class AIControl : MonoBehaviour
  
     void Update()
     {
-        
+        if(tempPoint !=null)
+        {
+            agent.SetDestination(tempPoint.position);
+        }
+
+        if(health<=0)
+        {
+            CancelInvoke();
+            animator.Play("Standing React Death Backward");
+            Destroy(gameObject,3);
+        }
+    }
+
+    private void SetTarget(Transform newTarget)
+    {
+        CancelInvoke();
+        tempPoint = newTarget;
+    }
+
+    public void RemoveTarget()
+    {
+        tempPoint = null;
+        InvokeRepeating(nameof(MoveNext), 0, 2);
     }
 
     public void MoveNext()
@@ -30,6 +58,29 @@ public class AIControl : MonoBehaviour
 
             if (count >= wayPoint.Length)
                 count = 0;
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Character"))
+        {
+           SetTarget(other.transform);
+            transform.LookAt(other.transform);
+            agent.SetDestination(tempPoint.position);
+        }
+
+    //   if(other.CompareTag("Bullet"))
+    //    {
+    //        health -= 30;
+    //    }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Character"))
+        {
+            RemoveTarget();
         }
     }
 }
