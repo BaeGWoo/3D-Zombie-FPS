@@ -12,7 +12,7 @@ public class AIControl : MonoBehaviour
     private Transform tempPoint=null;
 
 
-    [SerializeField] int health;
+   public int health;
 
     Animator animator;
     void Start()
@@ -32,7 +32,10 @@ public class AIControl : MonoBehaviour
 
         if(health<=0)
         {
+          
+          
             CancelInvoke();
+            agent.speed = 0;
             animator.Play("Standing React Death Backward");
             Destroy(gameObject,3);
         }
@@ -70,10 +73,15 @@ public class AIControl : MonoBehaviour
             agent.SetDestination(tempPoint.position);
         }
 
-    //   if(other.CompareTag("Bullet"))
-    //    {
-    //        health -= 30;
-    //    }
+     
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("Character"))
+        {
+            transform.LookAt(other.transform);
+        }
     }
 
     public void OnTriggerExit(Collider other)

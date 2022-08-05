@@ -44,11 +44,13 @@ public class Control : MonoBehaviour
 
         if(Input.GetButtonDown("Fire1"))
         {
-            Instantiate(bullet,direction.position,transform.rotation);
+            Instantiate(bullet,direction.position,direction.rotation);
 
           
             particle.Play();
         }
+
+        
 
         if (!characterControl.isGrounded)
         {

@@ -24,4 +24,15 @@ public class Bullet : MonoBehaviour
 
        
     }
+
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Monster"))
+        {
+            other.gameObject.GetComponentInParent<AIControl>().health -= 20;
+            Debug.Log("충돌");
+            Destroy(gameObject);
+        }
+    }
 }
