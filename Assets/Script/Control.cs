@@ -44,8 +44,9 @@ public class Control : MonoBehaviour
 
         if(Input.GetButtonDown("Fire1"))
         {
+            
             Instantiate(bullet,direction.position,direction.rotation);
-
+            SoundManager.instance.Sound(0);
           
             particle.Play();
         }

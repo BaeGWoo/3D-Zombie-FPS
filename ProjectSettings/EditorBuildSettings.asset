@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/RoofTop_SafeHouse/RTSH.unity
+    path: Assets/External Asset/RoofTop_SafeHouse/RTSH.unity
     guid: eeabfdba185b5434a9eebab754a9ac66
   m_configObjects: {}
